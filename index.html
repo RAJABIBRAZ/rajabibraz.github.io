@@ -145,6 +145,81 @@
       header h1 { font-size: 2em; }
       .btn, .toggle-btn { padding: 10px 20px; font-size: 0.9em; }
     }
+
+    #devops-animation {
+  text-align: center;
+  padding: 50px 20px;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.terminal {
+  font-family: monospace;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.cursor {
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.rocket-container {
+  position: relative;
+  height: 300px;
+}
+
+.rocket {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: launch 3s ease-in-out forwards;
+}
+
+@keyframes launch {
+  0% { bottom: 0; opacity: 0; }
+  50% { opacity: 1; }
+  100% { bottom: 250px; }
+}
+
+.orbit {
+  position: relative;
+  margin-top: 50px;
+}
+
+.kube-core {
+  width: 80px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.pod {
+  width: 20px;
+  height: 20px;
+  background: #00bcd4;
+  border-radius: 50%;
+  position: absolute;
+  animation: orbit 5s linear infinite;
+}
+
+.pod1 { top: -40px; left: 50%; transform: translateX(-50%); }
+.pod2 { top: 40px; left: 20%; }
+.pod3 { top: 40px; right: 20%; }
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
   </style>
 </head>
 <body>
@@ -194,6 +269,24 @@
     <h2>Digital Products</h2>
     <p>Explore my ready-to-use scripts and templates on <a href="https://gumroad.com/" target="_blank">Gumroad</a> and <a href="https://github.com/" target="_blank">GitHub</a>.</p>
   </section>
+  
+  <section id="devops-animation">
+  <h2>DevOps in Motion 🚀</h2>
+  <div class="terminal">
+    <span class="typed-text"></span><span class="cursor">|</span>
+  </div>
+
+  <div class="rocket-container">
+    <img src="docker-rocket.svg" alt="Docker Rocket" class="rocket" />
+    <div class="orbit">
+      <img src="kubernetes-logo.svg" alt="Kubernetes" class="kube-core" />
+      <div class="pod pod1"></div>
+      <div class="pod pod2"></div>
+      <div class="pod pod3"></div>
+    </div>
+  </div>
+  </section>
+
 
   <footer>
     <p>© 2025 RAJAB .A. IBRAHIM | <a href="mailto:a.ibrahimrajab@gmail.com">Contact Me</a></p>
@@ -211,5 +304,32 @@
       document.body.classList.toggle('dark-mode');
     }
   </script>
+  <script>
+  const text = [
+    "docker build -t myapp .",
+    "kubectl apply -f deployment.yaml"
+  ];
+  let line = 0;
+  let char = 0;
+  const typedText = document.querySelector(".typed-text");
+
+  function type() {
+    if (line < text.length) {
+      if (char < text[line].length) {
+        typedText.textContent += text[line][char];
+        char++;
+        setTimeout(type, 100);
+      } else {
+        typedText.textContent += "\n";
+        line++;
+        char = 0;
+        setTimeout(type, 500);
+      }
+    }
+  }
+
+  type();
+</script>
+
 </body>
 </html>
